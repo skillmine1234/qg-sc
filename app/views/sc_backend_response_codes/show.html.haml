@@ -1,0 +1,56 @@
+.form-horizontal.show_form
+  .form-main-with-color{:style=>'background-color: #F1F2F8; margin: 1%;'}
+    #form-details
+      %h3 SC Backend Response Code Details 
+      %br
+      %p{:style => 'text-align:left; padding-left:6px; padding-bottom:17px'}
+        - can = can? :edit, @sc_backend_response_code
+        %a.btn{:href => "#{!(can) ? '#' : '/sc_backend_response_codes/' + @sc_backend_response_code.id.to_s + '/edit'}", :role => "button", :class => "btn btn-primary #{(can) ? '' : 'disabled'}"} Edit
+        = render 'unapproved_records/approve', :@record => @sc_backend_response_code
+      %table.table.no-border{:style=>"table-layout: fixed; width: 100%"}
+        - if !@sc_backend_response_code.nil?
+          %tr
+            %td.label Version
+            %td.value
+              = link_to "#{audit_count(@sc_backend_response_code)}", :controller => :sc_backend_response_codes, :action => :audit_logs, :version_id => audit_count(@sc_backend_response_code), :id => @sc_backend_response_code.id
+          %tr
+            %td.label SC Backend Code
+            %td.value
+              = @sc_backend_response_code.sc_backend_code
+            %td
+          %tr
+            %td.label Enabled?
+            %td
+              = @sc_backend_response_code.is_enabled
+            %td
+          %tr
+            %td.label Response Code
+            %td.value
+              = @sc_backend_response_code.response_code
+            %td
+          %tr
+            %td.label Fault Code
+            %td
+              = @sc_backend_response_code.fault_code
+            %td
+          %tr
+            %td.label Created By
+            %td.value
+              = @sc_backend_response_code.created_user.try(:username)
+            %td
+          %tr
+            %td.label Updated By
+            %td.value
+              = @sc_backend_response_code.updated_user.try(:username)
+            %td
+          %tr
+            %td.label Created At
+            %td.value
+              = @sc_backend_response_code.created_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td
+          %tr
+            %td.label Updated At
+            %td.value
+              = @sc_backend_response_code.updated_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td
+              

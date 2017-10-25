@@ -1,0 +1,67 @@
+%br
+%br
+%h1 Listing SC Backends
+%h2.collapsible
+  Advanced Search
+  %span.caret
+.collapsible-content
+  = render :partial => 'advanced_search'
+%br
+= "Total Count: #{@sc_backends_count}"
+%br
+= will_paginate @sc_backends
+%br
+
+%table.table.table-bordered.table-striped.table-hover
+  .thead
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Code
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Do Auto Shutdown?
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Max Consecutive Failures
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Window In Mins
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Do Auto Start?
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Min Consecutive Success
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Min Window Success
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Max Window Failures
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Alert Email To
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Current Status
+  .tbody
+    - @sc_backends.each do |sc_backend|
+      %tr
+        %td{:style=>'text-align:left;'}
+          = link_to 'Show', sc_backend
+        %td{:style=>'text-align:left;'}
+          = link_to 'Edit', edit_sc_backend_path(sc_backend)
+        %td{:style=>'text-align:left;'}
+          = sc_backend.code
+        %td{:style=>'text-align:left;'}
+          = sc_backend.do_auto_shutdown
+        %td{:style=>'text-align:left;'}
+          = sc_backend.max_consecutive_failures
+        %td{:style=>'text-align:left;'}
+          = sc_backend.window_in_mins
+        %td{:style=>'text-align:left;'}
+          = sc_backend.do_auto_start
+        %td{:style=>'text-align:left;'}
+          = sc_backend.min_consecutive_success
+        %td{:style=>'text-align:left;'}
+          = sc_backend.min_window_success
+        %td{:style=>'text-align:left;'}
+          = sc_backend.max_window_failures
+        %td{:style=>'text-align:left;'}
+          = sc_backend.alert_email_to
+        %td{:style=>'text-align:left;'}
+          = sc_backend.sc_backend_status_changes.last.try(:full_status)
+
+

@@ -1,0 +1,18 @@
+%h2.collapsible
+  Advanced Search
+  %span.caret
+.collapsible-content
+  = form_tag sc_fault_codes_path, :method => :put, :class => 'form-horizontal', :autocomplete=>"off", id: 'advanced_search' do
+    .control-group
+      = label_tag "Fault Code", "Fault Code", :class => 'control-label'
+      = text_field_tag :fault_code, params[:fault_code]
+    .control-group
+      = label_tag "Fault Kind", "Fault Kind", :class => 'control-label'
+      = text_field_tag :fault_kind, params[:fault_kind]
+      
+    = hidden_field_tag :page, params[:page] || 1
+    .form-actions
+      = submit_tag "Search", :name => nil, :class => 'btn btn-primary', :id => "adv_search_button",onclick: "$('#page').val(1)"
+      = button_tag "Reset", :type => 'button', :value=>'Reset', :class => 'btn', :id => 'adv_search_reset_button'
+
+= advanced_search_page_links

@@ -1,0 +1,41 @@
+%br
+%br
+%h1 Listing SC Jobs
+= render :partial => 'advanced_search'
+%br
+%br
+
+%table.table.table-bordered.table-striped.table-hover
+  .thead
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Code
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Service
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Last Run At
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Status
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+
+  .tbody
+    - @records.each do |sc_job|
+      %tr
+        %td{:style=>'text-align:left;'}
+          = link_to 'Show', sc_job
+        %td{:style=>'text-align:left;'}
+          = sc_job.code
+        %td{:style=>'text-align:left;'}
+          = sc_job.sc_service.try(:name)
+        %td{:style=>'text-align:left;'}
+          = relative_time(sc_job.last_run_at)
+        %td{:style=>'text-align:left;'}
+          - if sc_job.paused == 'N'
+            = link_to 'Pause', pause_sc_job_path(sc_job), method: :put, class: 'btn btn-primary'
+          - else
+            = 'Paused'
+        %td{:style=>'text-align:left;'}
+          - if sc_job.run_now == 'N'
+            = link_to 'Run Now', run_sc_job_path(sc_job), method: :put, class: 'btn btn-primary'
+          - else
+            = 'Started'

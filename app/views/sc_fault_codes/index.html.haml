@@ -1,0 +1,28 @@
+%br
+%br
+%h1 Listing SC Fault Codes
+= render :partial => 'advanced_search'
+%br
+%br
+
+%table.table.table-bordered.table-striped.table-hover
+  .thead
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Fault Code
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Fault Reason
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Fault Kind
+
+  .tbody
+    - @records.each do |sc_fault_code|
+      %tr
+        %td{:style=>'text-align:left;'}
+          = link_to 'Show', sc_fault_code
+        %td{:style=>'text-align:left;'}
+          = sc_fault_code.fault_code
+        %td{:style=>'text-align:left;'}
+          = sc_fault_code.fault_reason
+        %td{:style=>'text-align:left;'}
+          = sc_fault_code.fault_kind

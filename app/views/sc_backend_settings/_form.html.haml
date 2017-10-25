@@ -1,0 +1,47 @@
+= simple_form_for @sc_backend_setting, :html => {:class=>'form-horizontal', :autocomplete=>"off", :id => "sc_backend_setting_form"} do |f|
+  .control-group
+    - if @sc_backend_setting.errors.any?
+      #msg-error
+        - @sc_backend_setting.errors.full_messages.each do |msg|
+          = msg
+          %br
+  .form-main
+    = f.hidden_field :lock_version
+    = f.hidden_field :approved_id
+    = f.hidden_field :approved_version
+    = f.hidden_field :settings_cnt
+    = f.hidden_field :is_std
+    = f.hidden_field :is_enabled
+    - if @sc_backend_setting.is_std == 'Y'
+      .control-group
+        = f.label :is_enabled, 'Is Enabled?', class: 'control-label'
+        = f.check_box :is_enabled, {disabled: true}, 'Y', 'N'
+      .control-group
+        = f.label :backend_code, "*Backend Code", :class => 'control-label'
+        = f.text_field :backend_code, readonly: true
+      .control-group
+        = f.label :service_code, "*Service Code", :class => 'control-label'
+        = f.text_field :service_code, readonly: true
+      .control-group
+        = f.label :app_id, "App ID", :class => 'control-label'
+        = f.text_field :app_id, maxlength: 50, readonly: true
+    - else
+      .control-group
+        = f.label :is_enabled, 'Is Enabled?', class: 'control-label'
+        = f.check_box :is_enabled, {}, 'Y', 'N'
+      .control-group
+        = f.label :backend_code, "*Backend Code", :class => 'control-label'
+        = f.select :backend_code, options_for_select(ScBackendSetting.options_for_backend_code, @sc_backend_setting.backend_code), prompt: 'Select'
+      .control-group
+        = f.label :service_code, "*Service Code", :class => 'control-label'
+        = f.select :service_code, options_for_select(ScBackendSetting.options_for_service_code(@sc_backend_setting.backend_code) | [@sc_backend_setting.service_code], @sc_backend_setting.service_code)
+      .control-group
+        = f.label :app_id, "App ID", :class => 'control-label'
+        = f.text_field :app_id, maxlength: 50
+    .settings
+      = render :partial => 'settings', locals: {setting: @sc_backend_setting}
+
+  .form-actions
+    - (f.object.new_record? and f.object.backend_code.nil?) ? label_name = "Create" : label_name = "Update"
+    = f.button "submit" ,:class=>"btn btn-primary", :id => 'submit_sc_backend_setting', :value => label_name + ' Backend Setting'
+    = link_to :Cancel,'/sc_backend_settings', :name => 'cancel', :class=>"cancel btn"

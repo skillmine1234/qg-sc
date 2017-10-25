@@ -1,0 +1,74 @@
+.form-horizontal.show_form
+  .form-main-with-color{:style=>'background-color: #F1F2F8;'}
+    #form-details
+      %h3 SC Backend Setting Details 
+      %br
+      %p{:style => 'text-align:left; padding-left:6px; padding-bottom:17px'}
+        - can = can? :edit, @sc_backend_setting
+        %a.btn{:href => "#{!(can) ? '#' : '/sc_backend_settings/' + @sc_backend_setting.id.to_s + '/edit'}", :role => "button", :class => "btn btn-primary #{(can) ? '' : 'disabled'}"} Edit
+        = render 'approve', :@record => @sc_backend_setting
+      %table.table.no-border{:style=>"table-layout: fixed; width: 100%;"}
+        - if !@sc_backend_setting.nil?
+          %tr
+            %td.label Version
+            %td.value
+              = link_to "#{audit_count(@sc_backend_setting)}", :controller => :sc_backend_settings, :action => :audit_logs, :version_id => audit_count(@sc_backend_setting), :id => @sc_backend_setting.id
+          %tr
+            %td.label Enabled?
+            %td.value
+              = @sc_backend_setting.is_enabled
+            %td
+          %tr
+            %td.label Standard?
+            %td.value
+              = @sc_backend_setting.is_std
+            %td
+          %tr
+            %td.label Backend Code
+            %td.value
+              = @sc_backend_setting.backend_code
+            %td
+          %tr
+            %td.label Service Code
+            %td.value
+              = @sc_backend_setting.service_code
+            %td
+          %tr
+            %td.label App ID
+            %td.value
+              = @sc_backend_setting.app_id
+            %td
+          %tr
+            %td.label Created By
+            %td.value
+              = @sc_backend_setting.created_user.try(:username)
+            %td
+          %tr
+            %td.label Updated By
+            %td.value
+              = @sc_backend_setting.updated_user.try(:username)
+            %td
+          %tr
+            %td.label Created At
+            %td.value
+              = @sc_backend_setting.created_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td
+          %tr
+            %td.label Updated At
+            %td.value
+              = @sc_backend_setting.updated_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td
+          %tr
+            - if @sc_backend_setting.settings_cnt.present? and @sc_backend_setting.settings_cnt > 0
+              %table.table.datatable{style: 'width: 50%'}
+                %thead
+                  %tr
+                    %th Setting Name
+                    %th Setting Value
+                %tbody
+                  - (1..@sc_backend_setting.settings_cnt).each do |i|
+                    %tr
+                      %td
+                        = @sc_backend_setting.send("setting#{i}_name")
+                      %td
+                        = @sc_backend_setting.send("setting#{i}_value")

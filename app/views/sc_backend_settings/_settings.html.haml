@@ -1,0 +1,8 @@
+.control-group
+  - (1..5).each do |i|
+    - if setting.send("setting#{i}_name").present?
+      .control-group
+        = label_tag "sc_backend_setting[setting#{i}_value]", setting.send("setting#{i}_name").humanize, class: 'control-label'
+        = send("#{setting["setting#{i}"]["setting#{i}_type"] || 'text'}_field_tag", "sc_backend_setting[setting#{i}_value]", setting.try("setting#{i}_value"))
+        = hidden_field_tag "sc_backend_setting[setting#{i}_type]", setting.send("setting#{i}_type")
+        = hidden_field_tag "sc_backend_setting[setting#{i}_name]", setting.send("setting#{i}_name")

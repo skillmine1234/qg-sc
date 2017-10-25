@@ -1,0 +1,32 @@
+%br
+= link_to 'New SC Backend Setting', new_sc_backend_setting_path
+%br
+%br
+%h1 Listing SC Backend Setting
+= render :partial => 'advanced_search'
+%br
+%br
+%table.table.table-bordered.table-striped.table-hover
+  .thead
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Backend Code
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Service Code
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      App ID
+
+  .tbody
+    - @records.each do |sc_backend_setting|
+      %tr
+        %td{:style=>'text-align:left;'}
+          = link_to 'Show', sc_backend_setting
+        %td{:style=>'text-align:left;'}
+          = link_to 'Edit', edit_sc_backend_setting_path(sc_backend_setting)
+        %td{:style=>'text-align:left;'}
+          = sc_backend_setting.backend_code
+        %td{:style=>'text-align:left;'}
+          = sc_backend_setting.service_code
+        %td{:style=>'text-align:left;'}
+          = sc_backend_setting.app_id

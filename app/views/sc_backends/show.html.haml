@@ -1,0 +1,189 @@
+.form-horizontal.show_form
+  .form-main-with-color{:style=>'background-color: #F1F2F8; height: 900px;'}
+    #form-details
+      %h3 SC Backend Details 
+      %br
+      %p{:style => 'text-align:left; padding-left:6px; padding-bottom:17px'}
+        - can = can? :edit, @sc_backend
+        %a.btn{:href => "#{!(can) ? '#' : '/sc_backends/' + @sc_backend.id.to_s + '/edit'}", :role => "button", :class => "btn btn-primary #{(can) ? '' : 'disabled'}"} Edit
+        = render 'approve', :@record => @sc_backend
+      #main-block{:style=>"width: 100%;"}
+        #left-block{:style => 'width: 49%; float: left;'}
+          %table.table.no-border{:style=>"table-layout: fixed; width: 100%;"}
+            - if !@sc_backend.nil?
+              %tr
+                %td.label Version
+                %td.value
+                  = link_to "#{audit_count(@sc_backend)}", :controller => :sc_backends, :action => :audit_logs, :version_id => audit_count(@sc_backend), :id => @sc_backend.id
+              %tr
+                %td.label Form Errors
+                %td.value
+                  = ' '
+                %td#msg-error
+                  = error_message_for(@sc_backend, :base, :prepend_text => "")
+              %tr
+                %td.label Code
+                %td.value
+                  = @sc_backend.code
+                %td#msg-error
+                  = error_message_for(@sc_backend, :code, :prepend_text => "")
+              %tr
+                %td.label Do Auto Shutdown?
+                %td.value
+                  = @sc_backend.do_auto_shutdown
+                %td#msg-error
+                  = error_message_for(@sc_backend, :do_auto_shutdown, :prepend_text => "")
+              %tr
+                %td.label Max Consecutive Failures
+                %td.value
+                  = @sc_backend.max_consecutive_failures
+                %td#msg-error
+                  = error_message_for(@sc_backend, :max_consecutive_failures, :prepend_text => "")
+              %tr
+                %td.label Window In Mins
+                %td.value
+                  = @sc_backend.window_in_mins
+                %td#msg-error
+                  = error_message_for(@sc_backend, :window_in_mins, :prepend_text => "")
+              %tr
+                %td.label Max Window Failures
+                %td.value
+                  = @sc_backend.max_window_failures
+                %td#msg-error
+                  = error_message_for(@sc_backend, :max_window_failures, :prepend_text => "")
+              %tr
+                %td.label Do Auto Start?
+                %td.value
+                  = @sc_backend.do_auto_start
+                %td#msg-error
+                  = error_message_for(@sc_backend, :do_auto_start, :prepend_text => "")
+              %tr
+                %td.label Min Consecutive Success
+                %td.value
+                  = @sc_backend.min_consecutive_success
+                %td#msg-error
+                  = error_message_for(@sc_backend, :min_consecutive_success, :prepend_text => "")
+              %tr
+                %td.label Min Window Success
+                %td.value
+                  = @sc_backend.min_window_success
+                %td#msg-error
+                  = error_message_for(@sc_backend, :min_window_success, :prepend_text => "")
+              %tr
+                %td.label Alert Email To
+                %td.value
+                  = @sc_backend.alert_email_to
+                %td#msg-error
+                  = error_message_for(@sc_backend, :alert_email_to, :prepend_text => "")
+              %tr
+                %td.label Created By
+                %td.value
+                  = @sc_backend.created_user.try(:username)
+                %td#msg-error
+                  = error_message_for(@sc_backend, :created_by, :prepend_text => "")
+              %tr
+                %td.label Updated By
+                %td.value
+                  = @sc_backend.updated_user.try(:username)
+                %td#msg-error
+                  = error_message_for(@sc_backend, :updated_by, :prepend_text => "")
+              %tr
+                %td.label Created At
+                %td.value
+                  = @sc_backend.created_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+                %td#msg-error
+                  = error_message_for(@sc_backend, :created_at, :prepend_text => "")
+              %tr
+                %td.label Updated At
+                %td.value
+                  = @sc_backend.updated_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+                %td#msg-error
+                  = error_message_for(@sc_backend, :updated_at, :prepend_text => "")
+        #right-block{:style => 'width: 49%; float: right;'}
+          .top-block
+            %h3
+              Status :
+            - if !@sc_backend_status.nil?
+              %table.table.no-border{cellpadding: "20", cellspacing: "20", :style=>"width: 100%;"}
+                %tr
+                  %td.label{:style => 'height: 26px; width: 30%;'} Current Status
+                  %td.value{:style => 'height: 26px; font-weight: bold; font-size: 1.1em;'}
+                    = @sc_backend_status.full_status
+                %tr
+                  %td.label{:style => 'height: 26px; width: 30%; padding-top: 8px;'} Change Status To
+                  %td.value{:style => 'height: 22px;'}
+                    - if @sc_backend_status.status == 'U'
+                      - btn_lbl = "Down"
+                    - elsif @sc_backend_status.status == 'D'
+                      - btn_lbl = "Up"
+                    %a.btn{"data-toggle" => "modal", :href => "#scBackendStatusChangesModal", :role => "button", :class => "btn btn-primary"} 
+                      = btn_lbl
+                %tr
+                  %td.label{:style => 'height: 26px; width: 30%;'} Last Status Change Remark
+                  %td.value{:style => 'height: 26px;'}
+                    = @sc_backend_status.last_status_change.try(:remarks)
+                %tr
+                  %td.label{:style => 'height: 26px; width: 30%;'}
+                    = link_to 'Previous Status Changes', previous_status_changes_path(@sc_backend)
+                  %td.value{:style => 'height: 26px;'}
+          .bottom-block
+            %h3
+              Statistics :
+            - if !@sc_backend_stat.nil?
+              %table.table.no-border{:style=>"table-layout: fixed; width: 100%;"}
+                %tr
+                  %td.label Consecutive Failure Count
+                  %td.value
+                    = @sc_backend_stat.consecutive_failure_cnt
+                %tr
+                  %td.label Consecutive Success Count
+                  %td.value
+                    = @sc_backend_stat.consecutive_success_cnt
+                %tr
+                  %td.label Window Started At
+                  %td.value
+                    = @sc_backend_stat.window_started_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+                %tr
+                  %td.label Window Ends At
+                  %td.value
+                    = @sc_backend_stat.window_ends_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+                %tr
+                  %td.label Window Failure Count
+                  %td.value
+                    = @sc_backend_stat.window_failure_cnt
+                %tr
+                  %td.label Window Success Count
+                  %td.value
+                    = @sc_backend_stat.window_success_cnt
+                %tr
+                  %td.label Step Name
+                  %td.value
+                    = @sc_backend_stat.step_name
+                %tr
+                  %td.label Updated At
+                  %td.value
+                    = @sc_backend_stat.updated_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+                %tr
+                  %td.label Last Status Change ID
+                  %td.value
+                    = @sc_backend_stat.last_status_change_id
+                %tr
+                  %td.label Last Alert Email At
+                  %td.value
+                    = @sc_backend_stat.last_alert_email_at
+                %tr
+                  %td.label Last Alert Email Reference
+                  %td.value
+                    = @sc_backend_stat.last_alert_email_ref
+
+.modal.hide.fade{"id" => "scBackendStatusChangesModal", "aria-hidden" => "true", "aria-labelledby" => "  myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3#myModalLabel Create SC Backend Status Changes
+    #error_message{:style => 'color:red'}
+  .modal-body
+    = simple_form_for @sc_backend_status_change, :url => {:action => 'change_status'}, :method => :post, :html=>{:id=>"transition"} do |ef|
+      = ef.label :remarks, "*Remarks"
+      = ef.text_field :remarks, :required => true
+      %br
+      = submit_tag "Change Status", :class=>"btn btn-primary transition_button", :id => "transition_button"

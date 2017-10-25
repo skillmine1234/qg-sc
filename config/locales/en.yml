@@ -1,0 +1,7 @@
+en:
+  menu:
+    sc_backend: 'Service Center Backend'
+    sc_job: 'Service Center Job'
+    sc_backend_response_code: 'Service Center Backend Response Code'
+    sc_fault_code: 'Service Center Fault Code'
+    sc_backend_setting: 'Service Center Backend Setting'

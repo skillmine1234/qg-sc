@@ -1,0 +1,45 @@
+.form-horizontal.show_form
+  .form-main-with-color{:style=>'background-color: #F1F2F8; height: 600px; padding-left: 10px'}
+    #form-details
+      %h3 SC Job Details
+      %table.table.no-border{:style=>"table-layout: fixed; width: 100%;"}
+        %tr
+          %td.label Code
+          %td.value
+            = @sc_job.code
+          %td
+        %tr
+          %td.label Service
+          %td.value
+            = @sc_job.sc_service.try(:name)
+          %td
+        %tr
+          %td.label Run At Hour
+          %td.value
+            = @sc_job.run_at_hour
+          %td
+        %tr
+          %td.label Last Run At
+          %td.value
+            = @sc_job.last_run_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+          %td
+        %tr
+          %td.label Last Run By
+          %td.value
+            = @sc_job.last_run_by
+          %td
+        %tr
+          %td.label Run Every Hour
+          %td.value
+            = @sc_job.run_every_hour
+          %td
+        %tr
+          %td.label Run Now
+          %td.value
+            = @sc_job.run_now
+          %td
+        %tr
+          %td.label Paused
+          %td.value
+            = @sc_job.paused
+          %td
