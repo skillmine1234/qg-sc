@@ -1,0 +1,1 @@
+Group.seed_once(:name, { name: "sc-backend"})
