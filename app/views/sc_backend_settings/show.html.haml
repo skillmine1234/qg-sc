@@ -71,4 +71,7 @@
                       %td
                         = @sc_backend_setting.send("setting#{i}_name")
                       %td
-                        = @sc_backend_setting.send("setting#{i}_value")
+                        - if @sc_backend_setting.send("setting#{i}_type") == 'password' && @sc_backend_setting.approval_status == 'A'
+                          = '*****'
+                        - else
+                          = @sc_backend_setting.send("setting#{i}_value")
