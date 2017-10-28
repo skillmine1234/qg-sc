@@ -23,7 +23,8 @@ class ScBackend < ActiveRecord::Base
   validates :max_window_failures, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
   validates :min_consecutive_success, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
   validates :min_window_success, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
-
+  validates :urls, format: { with: URI.regexp , :message => 'Please enter a valid url, Eg: http://example.com'}
+  
   validate :check_max_consecutive_failures
   validate :check_min_consecutive_success
   validate :check_max_window_failures

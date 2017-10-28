@@ -49,7 +49,7 @@
         = error_message_for(@sc_backend, :min_window_success, :prepend_text => "")
     .control-group
       = f.label :use_proxy, "Use Proxy?", :class => 'control-label'
-      = f.check_box :do_auto_shutdown, {},"Y","N"
+      = f.check_box :use_proxy, {},"Y","N"
       #msg-error
         = error_message_for(@sc_backend, :use_proxy, :prepend_text => "")
     .control-group
