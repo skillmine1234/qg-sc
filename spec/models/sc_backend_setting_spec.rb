@@ -189,4 +189,20 @@ describe ScBackendSetting do
       sc_backend_setting.settings_cnt.should == 1
     end
   end
+  
+  context "encrypt_password_settings" do 
+    it "should encrypt the settings with type password" do 
+      sc_backend_setting = Factory.build(:sc_backend_setting, setting1_name: 'name1', setting1_type: 'text', setting1_value: 'value1', setting2_name: 'name2', setting2_type: 'password', setting2_value: 'password123')
+      sc_backend_setting.save.should be_true
+      sc_backend_setting.reload
+      sc_backend_setting.setting2_value.should == "password123"
+    end
+  end
+  
+  context "decrypt_password_settings" do 
+    it "should decrypt the settings with type password" do 
+      sc_backend_setting = Factory.build(:sc_backend_setting, setting1_name: 'name1', setting1_type: 'text', setting1_value: 'value1', setting2_name: 'name2', setting2_type: 'password', setting2_value: 'password123')
+      sc_backend_setting.setting2_value.should == "password123"
+    end
+  end
 end
