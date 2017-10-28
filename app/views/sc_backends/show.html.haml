@@ -70,6 +70,18 @@
                 %td#msg-error
                   = error_message_for(@sc_backend, :min_window_success, :prepend_text => "")
               %tr
+                %td.label Url
+                %td.value
+                  = @sc_backend.url
+                %td#msg-error
+                  = error_message_for(@sc_backend, :url, :prepend_text => "")
+              %tr
+                %td.label Use Proxy?
+                %td.value
+                  = @sc_backend.use_proxy
+                %td#msg-error
+                  = error_message_for(@sc_backend, :use_proxy, :prepend_text => "")
+              %tr
                 %td.label Alert Email To
                 %td.value
                   = @sc_backend.alert_email_to
