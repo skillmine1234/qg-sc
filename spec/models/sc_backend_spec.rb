@@ -13,7 +13,7 @@ describe ScBackend do
 
   context 'validation' do
     [:code, :do_auto_shutdown, :max_consecutive_failures, :window_in_mins, :max_window_failures, 
-     :do_auto_start, :min_consecutive_success, :min_window_success].each do |att|
+     :do_auto_start, :min_consecutive_success, :min_window_success, :use_proxy].each do |att|
       it { should validate_presence_of(att) }
     end
 
@@ -32,6 +32,10 @@ describe ScBackend do
       sc_backend.errors_on(:max_window_failures).should == ["must be an integer"]
       sc_backend.errors_on(:min_consecutive_success).should == ["must be an integer"]
       sc_backend.errors_on(:min_window_success).should == ["must be an integer"]
+    end
+    
+    [:url].each do |att|
+      it { should validate_length_of(att).is_at_most(100) }
     end
 
     it do
@@ -134,6 +138,20 @@ describe ScBackend do
       
       sc_backend = Factory.build(:sc_backend, :alert_email_to => "foo@ruby.com;abe@def.com")
       sc_backend.should be_valid
+    end
+  end
+  
+  context "url format" do
+    [:url].each do |att|
+      it "should allow valid format" do
+        should allow_value('http://localhost:3000/pc_products').for(att)
+        should allow_value('localhost:3000').for(att)
+      end
+    
+      it "should not allow invalid format" do
+        should_not allow_value('localhost').for(att)
+        should_not allow_value('@#@localhost').for(att)
+      end
     end
   end
 end
