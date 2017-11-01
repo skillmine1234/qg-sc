@@ -13,5 +13,6 @@ FactoryGirl.define do
     alert_email_to "def@ruby.com"
     approval_status "U"
     last_action "C"
+    use_proxy "Y"
   end
 end

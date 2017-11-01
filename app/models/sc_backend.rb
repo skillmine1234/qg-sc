@@ -10,7 +10,7 @@ class ScBackend < ActiveRecord::Base
   accepts_nested_attributes_for :sc_backend_status_changes
 
   validates_presence_of :code, :do_auto_shutdown, :max_consecutive_failures, :window_in_mins, :max_window_failures, 
-                        :do_auto_start, :min_consecutive_success, :min_window_success
+                        :do_auto_start, :min_consecutive_success, :min_window_success, :use_proxy
   validates_uniqueness_of :code, :scope => :approval_status
 
   validates :code, length: { maximum: 20 }
@@ -23,7 +23,8 @@ class ScBackend < ActiveRecord::Base
   validates :max_window_failures, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
   validates :min_consecutive_success, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
   validates :min_window_success, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
-
+  validates :url, format: { with: URI.regexp , :message => 'Please enter a valid url, Eg: http://example.com'}, length: { maximum: 100 }, :allow_blank => true
+  
   validate :check_max_consecutive_failures
   validate :check_min_consecutive_success
   validate :check_max_window_failures

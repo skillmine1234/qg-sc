@@ -48,6 +48,16 @@
       #msg-error
         = error_message_for(@sc_backend, :min_window_success, :prepend_text => "")
     .control-group
+      = f.label :use_proxy, "Use Proxy?", :class => 'control-label'
+      = f.check_box :use_proxy, {},"Y","N"
+      #msg-error
+        = error_message_for(@sc_backend, :use_proxy, :prepend_text => "")
+    .control-group
+      = f.label :url, "URL", :class => 'control-label'
+      = f.text_field :url, :placeholder => "Enter Url", :input_html => {:maxlength => 100}
+      #msg-error
+        = error_message_for(@sc_backend, :url, :prepend_text => "")
+    .control-group
       = f.label :alert_email_to, "Alert Email To", :class => 'control-label'
       = f.text_field :alert_email_to, :placeholder => "Enter Email IDs separated by ';'", :style => "width: 400px;"
       #msg-error
