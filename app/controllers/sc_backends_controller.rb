@@ -115,7 +115,7 @@ class ScBackendsController < ApplicationController
   def sc_backend_params
     params.require(:sc_backend).permit(:code, :do_auto_shutdown, :max_consecutive_failures, :window_in_mins, :max_window_failures, 
                                        :do_auto_start, :min_consecutive_success, :min_window_success, :alert_email_to, 
-                                       :approval_status, :last_action, :approved_version, :approved_id,
+                                       :approval_status, :last_action, :approved_version, :approved_id, :url, :use_proxy,
                                        :created_by, :updated_by, :created_at, :updated_at, :lock_version, 
                                        sc_backend_status_changes_attributes: [:id, :code, :new_status, :remarks, :created_by, :created_at])
   end
