@@ -53,8 +53,8 @@
       #msg-error
         = error_message_for(@sc_backend, :use_proxy, :prepend_text => "")
     .control-group
-      = f.label :url, "Url", :class => 'control-label'
-      = f.text_field :url, :placeholder => "Enter Url;'", :style => "width: 400px;"
+      = f.label :url, "URL", :class => 'control-label'
+      = f.text_field :url, :placeholder => "Enter Url;'", :style => "width: 400px;", :input_html => {:maxlength => 100}
       #msg-error
         = error_message_for(@sc_backend, :url, :prepend_text => "")
     .control-group

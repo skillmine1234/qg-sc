@@ -14,7 +14,6 @@ class ScBackend < ActiveRecord::Base
   validates_uniqueness_of :code, :scope => :approval_status
 
   validates :code, length: { maximum: 20 }
-  validates :url, length: { maximum: 100 }
   validates :do_auto_shutdown, length: { minimum: 1, maximum: 1 }
   validates :window_in_mins, length: { minimum: 1, maximum: 2 }
   validates_inclusion_of :window_in_mins, :in => [1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60], :message => "Allowed Values: 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60"
@@ -24,7 +23,7 @@ class ScBackend < ActiveRecord::Base
   validates :max_window_failures, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
   validates :min_consecutive_success, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
   validates :min_window_success, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
-  validates :url, format: { with: URI.regexp , :message => 'Please enter a valid url, Eg: http://example.com'}, :allow_blank => true
+  validates :url, format: { with: URI.regexp , :message => 'Please enter a valid url, Eg: http://example.com'}, length: { maximum: 100 }, :allow_blank => true
   
   validate :check_max_consecutive_failures
   validate :check_min_consecutive_success
