@@ -17,6 +17,8 @@
     %th{:style=>'text-align:left; background-color: lightblue;'}
       Status
     %th{:style=>'text-align:left; background-color: lightblue;'}
+      Actions
+    %th{:style=>'text-align:left; background-color: lightblue;'}
 
   .tbody
     - @records.each do |sc_job|
@@ -29,6 +31,8 @@
           = sc_job.sc_service.try(:name)
         %td{:style=>'text-align:left;'}
           = relative_time(sc_job.last_run_at)
+        %td{:style=>'text-align:left;'} 
+          = sc_job.status_code
         %td{:style=>'text-align:left;'}
           - if sc_job.paused == 'N'
             = link_to 'Pause', pause_sc_job_path(sc_job), method: :put, class: 'btn btn-primary'

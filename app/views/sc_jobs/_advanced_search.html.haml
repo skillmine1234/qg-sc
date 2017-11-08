@@ -6,6 +6,9 @@
     .control-group
       = label_tag "Code", "Code", :class => 'control-label'
       = text_field_tag :code, params[:code]
+    .control-group
+      = label_tag "Status Code", "Status Code", :class => 'control-label'
+      = select_tag :status_code, options_for_select([['NEW','NEW'],['COMPLETED','COMPLETED'],['FAILED','FAILED']],params[:status_code]),:prompt => 'ANY'
       
     = hidden_field_tag :page, params[:page] || 1
     .form-actions
