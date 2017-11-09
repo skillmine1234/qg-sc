@@ -1,6 +1,6 @@
 class ScJobSearcher
   include ActiveModel::Validations
-  attr_accessor :page, :code
+  attr_accessor :page, :code, :status_code
   PER_PAGE = 10
   
   def initialize(attributes = {})
@@ -25,6 +25,7 @@ class ScJobSearcher
   def find
     reln = ScJob.order("id desc")
     reln = reln.where("code=?", code) if code.present?
+    reln = reln.where("status_code=?", status_code) if status_code.present?
     reln
   end
 end

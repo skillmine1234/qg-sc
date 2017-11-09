@@ -51,6 +51,6 @@ class ScJobsController < ApplicationController
   private
 
   def search_params
-    params.permit(:page, :code)
+    params.permit(:page, :code, :status_code)
   end
 end
