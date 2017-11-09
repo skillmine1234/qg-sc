@@ -1,1 +1,1 @@
-Group.seed_once(:name, { name: "sc-backend"})
+Group.seed(:name, { name: "sc-backend"})
