@@ -9,9 +9,11 @@ describe ScProxy do
   end
   
   context 'validation' do
-    [:sc_backend_code, :url, :is_enabled].each do |att|
+    [:url, :is_enabled].each do |att|
       it { should validate_presence_of(att) }
     end
+    
+    it { should validate_uniqueness_of(:url).scoped_to(:approval_status) }
     
     it "should validate_unapproved_record" do 
       sc_proxy1 = Factory(:sc_proxy,:approval_status => 'A')

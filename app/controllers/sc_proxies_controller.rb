@@ -57,7 +57,7 @@ class ScProxiesController < ApplicationController
   private    
 
   def sc_proxy_params
-    params.require(:sc_proxy).permit(:sc_backend_code, :url, :username, :password, :is_enabled, :created_by, :updated_by, :lock_version, :last_action, 
+    params.require(:sc_proxy).permit(:url, :username, :password, :is_enabled, :created_by, :updated_by, :lock_version, :last_action, 
                                     :approval_status, :approved_version, :approved_id)
   end
 end

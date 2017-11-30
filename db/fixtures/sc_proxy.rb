@@ -1,5 +1,4 @@
-ScProxy.seed(:sc_backend_code) do |s|
-  s.sc_backend_code = 'FCR'
+ScProxy.seed(:url) do |s|
   s.url = 'http://example.com'
   s.approval_status = 'A'
   s.created_by = 'Q'

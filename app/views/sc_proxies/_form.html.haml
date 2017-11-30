@@ -13,11 +13,6 @@
       #msg-error
         = error_message_for(@sc_proxy, :is_enabled, :prepend_text => "")
     .control-group
-      = f.label :sc_backend_code, "*SC Backend", :class => 'control-label'
-      = f.select :sc_backend_code, ScBackend.all.map { |key, value| [key.code, key.code] }
-      #msg-error
-        = error_message_for(@sc_proxy, :sc_backend_code, :prepend_text => "")
-    .control-group
       = f.label :url, "*URL", :class => 'control-label'
       = f.text_field :url, :placeholder => "Enter Url", :input_html => {:maxlength => 100}
       #msg-error
@@ -34,7 +29,7 @@
         = error_message_for(@sc_proxy, :password, :prepend_text => "")
 
   .form-actions
-    - (f.object.new_record? and f.object.sc_backend_code.nil?) ? label_name = "Create" : label_name = "Update"
+    - (f.object.new_record? and f.object.url.nil?) ? label_name = "Create" : label_name = "Update"
     = f.button "submit" ,:class=>"btn btn-primary", :id => 'submit_rule', :value => label_name + ' Proxy'
     = link_to :Cancel,root_path, :name => 'cancel', :class=>"cancel btn"
 
