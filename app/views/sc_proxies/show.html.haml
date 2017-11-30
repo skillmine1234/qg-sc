@@ -1,0 +1,55 @@
+.form-horizontal.show_form
+  .form-main-with-color{:style=>'background-color: #F1F2F8;'}
+    #form-details
+      %h3 SC-Backend Proxy Details
+      %br
+      %p{:style => 'text-align:left; padding-left:6px; padding-bottom:17px'}
+        - can = can? :edit, @sc_proxy
+        %a.btn{:href => "#{!(can) ? '#' : '/sc_proxies/' + @sc_proxy.id.to_s + '/edit'}", :role => "button", :class => "btn btn-primary #{(can) ? '' : 'disabled'}"} Edit
+        = render 'unapproved_records/approve', :@record => @sc_proxy
+      %table.table.no-border{:style=>"table-layout: fixed; width: 100%"}
+        - if !@sc_proxy.nil?
+          %tr
+            %td.label Version
+            %td.value
+              = link_to "#{audit_count(@sc_proxy)}", :controller => :sc_proxies, :action => :audit_logs, :version_id => audit_count(@sc_proxy), :id => @sc_proxy.id
+          %tr
+            %td.label Enabled ?
+            %td.value
+              = @sc_proxy.is_enabled
+            %td
+          %tr
+            %td.label SC-Backend Code
+            %td.value
+              = @sc_proxy.sc_backend_code
+            %td
+          %tr
+            %td.label URL
+            %td.value
+              = @sc_proxy.url
+            %td
+          %tr
+            %td.label Username
+            %td.value
+              = @sc_proxy.username
+            %td
+          %tr
+            %td.label Password
+            %td.value
+              - if @sc_proxy.password.present? && @sc_proxy.approval_status == 'A'
+                = '*****'
+              - else
+                = @sc_proxy.password
+            %td
+          %tr
+            %td.label Updated By
+            %td.value
+              = @sc_proxy.updated_user.try(:username)
+            %td
+          %tr
+            %td.label Updated At
+            %td.value
+              = @sc_proxy.updated_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td
+
+      = link_to 'Back to Dashboard', root_path              
