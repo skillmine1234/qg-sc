@@ -48,6 +48,16 @@
       #msg-error
         = error_message_for(@sc_backend, :min_window_success, :prepend_text => "")
     .control-group
+      = f.label :first_requery_after, "*First Requery After", :class => 'control-label'
+      = f.number_field :first_requery_after, readOnly: true
+      #msg-error
+        = error_message_for(@sc_backend, :first_requery_after, :prepend_text => "")
+    .control-group
+      = f.label :requery_interval, "*Requery Interval", :class => 'control-label'
+      = f.number_field :requery_interval, readOnly: true
+      #msg-error
+        = error_message_for(@sc_backend, :requery_interval, :prepend_text => "")
+    .control-group
       = f.label :use_proxy, "Use Proxy?", :class => 'control-label'
       = f.check_box :use_proxy, {},"Y","N"
       #msg-error

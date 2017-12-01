@@ -1,0 +1,22 @@
+%br
+%h1 Unapproved SC-Backend Proxy
+%br
+%table.table.table-bordered.table-striped.table-hover
+  .thead
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      URL
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Enabled?
+  .tbody
+    - @sc_proxies.each do |sc_proxy|
+      %tr
+        %td{:style=>'text-align:left;'}
+          = link_to 'Show', sc_proxy
+        %td{:style=>'text-align:left;'}
+          = link_to 'Edit', edit_sc_proxy_path(sc_proxy)
+        %td{:style=>'text-align:left;'}
+          = sc_proxy.url
+        %td{:style=>'text-align:left;'}
+          = sc_proxy.is_enabled

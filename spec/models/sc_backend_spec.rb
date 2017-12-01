@@ -54,6 +54,9 @@ describe ScBackend do
       sc_backend = Factory(:sc_backend, :approval_status => 'A')
       should validate_uniqueness_of(:code).scoped_to(:approval_status)
     end
+    
+    it { should validate_numericality_of(:first_requery_after).is_greater_than(0) }
+    it { should validate_numericality_of(:requery_interval).is_greater_than(0) }
 
     it "should return error if code is already taken" do
       sc_backend1 = Factory(:sc_backend, :code => "9933", :approval_status => 'A')
