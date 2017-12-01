@@ -88,6 +88,18 @@
                 %td#msg-error
                   = error_message_for(@sc_backend, :alert_email_to, :prepend_text => "")
               %tr
+                %td.label First Requery After
+                %td.value
+                  = @sc_backend.first_requery_after
+                %td#msg-error
+                  = error_message_for(@sc_backend, :first_requery_after, :prepend_text => "")
+              %tr
+                %td.label Requery Interval
+                %td.value
+                  = @sc_backend.requery_interval
+                %td#msg-error
+                  = error_message_for(@sc_backend, :requery_interval, :prepend_text => "")
+              %tr
                 %td.label Created By
                 %td.value
                   = @sc_backend.created_user.try(:username)
