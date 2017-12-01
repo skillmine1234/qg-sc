@@ -90,7 +90,7 @@ describe ScProxy do
   context "default_scope" do 
     it "should only return 'A' records by default" do 
       sc_proxy1 = Factory(:sc_proxy, :approval_status => 'A') 
-      sc_proxy2 = Factory(:sc_proxy)
+      sc_proxy2 = Factory(:sc_proxy, url: 'https://google.com')
       ScProxy.all.should == [sc_proxy1]
       sc_proxy2.approval_status = 'A'
       sc_proxy2.save
