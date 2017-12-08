@@ -1,0 +1,58 @@
+.form-horizontal.show_form
+  .form-main-with-color{:style=>'background-color: #F1F2F8;'}
+    #form-details
+      %h3 SC-Service Details
+      %br
+      %p{:style => 'text-align:left; padding-left:6px; padding-bottom:17px'}
+        - can = can? :edit, @sc_service
+        %a.btn{:href => "#{!(can) ? '#' : '/sc_services/' + @sc_service.id.to_s + '/edit'}", :role => "button", :class => "btn btn-primary #{(can) ? '' : 'disabled'}"} Edit
+        = render 'unapproved_records/approve', :@record => @sc_service
+      %table.table.no-border{:style=>"table-layout: fixed; width: 100%"}
+        - if !@sc_service.nil?
+          %tr
+            %td.label Version
+            %td.value
+              = link_to "#{audit_count(@sc_service)}", :controller => :sc_services, :action => :audit_logs, :version_id => audit_count(@sc_service), :id => @sc_service.id
+          %tr
+            %td.label Code
+            %td.value
+              = @sc_service.code
+            %td
+          %tr
+            %td.label Name
+            %td.value
+              = @sc_service.name
+            %td
+          %tr
+            %td.label Use Proxy?
+            %td.value
+              = @sc_service.use_proxy
+            %td
+          %tr
+            %td.label URL
+            %td.value
+              = @sc_service.url
+            %td
+          %tr
+            %td.label HTTP Username
+            %td.value
+              = @sc_service.http_username
+            %td
+          %tr
+            %td.label HTTP Password
+            %td.value
+              - if @sc_service.http_password.present? && @sc_service.approval_status == 'A'
+                = '*****'
+              - else
+                = @sc_service.http_password
+            %td
+          %tr
+            %td.label Updated By
+            %td.value
+              = @sc_service.updated_user.try(:username)
+            %td
+          %tr
+            %td.label Updated At
+            %td.value
+              = @sc_service.updated_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+            %td

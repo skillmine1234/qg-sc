@@ -50,6 +50,16 @@ Rails.application.routes.draw do
       put :approve
     end
   end
+  
+  resources :sc_services do
+    member do
+      get :audit_logs
+      put :approve
+    end
+    collection do
+      put :index
+    end
+  end
 
   get '/sc_backend_response_codes/:id/audit_logs' => 'sc_backend_response_codes#audit_logs'
   put '/sc_backend_response_codes/:id/approve' => "sc_backend_response_codes#approve"

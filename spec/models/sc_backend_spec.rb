@@ -86,6 +86,22 @@ describe ScBackend do
       sc_backend1.should_not be_valid
       sc_backend1.errors_on(:window_in_mins).should == ["Allowed Values: 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60"]
     end
+    
+    it { should validate_length_of(:http_username).is_at_most(100) }
+    it { should validate_length_of(:http_password).is_at_most(50) }
+    
+    it "should validate presence of http_username and http_password" do
+      sc_backend = Factory.build(:sc_backend, http_username: 'divya', http_password: nil)
+      sc_backend.save.should == false
+      sc_backend.errors_on(:http_password).should == ["can't be blank"]
+      
+      sc_backend = Factory.build(:sc_backend, http_username: nil, http_password: 'pass@123')
+      sc_backend.save.should == false
+      sc_backend.errors_on(:http_password).should == ["must be blank"]
+      
+      sc_backend = Factory.build(:sc_backend, http_username: 'divya', http_password: 'pass@123')
+      sc_backend.save.should == true
+    end
   end
 
   context "default_scope" do 
@@ -155,6 +171,23 @@ describe ScBackend do
         should_not allow_value('localhost').for(att)
         should_not allow_value('@#@localhost').for(att)
       end
+    end
+  end
+  
+  
+  context "encrypt_values" do 
+    it "should encrypt the http_password" do 
+      sc_backend = Factory.build(:sc_backend, http_username: 'http_username', http_password: 'http_password')
+      sc_backend.save.should be_true
+      sc_backend.reload
+      sc_backend.http_password.should == "http_password"
+    end
+  end
+  
+  context "decrypt_values" do 
+    it "should decrypt the http_http_password" do 
+      sc_backend = Factory.build(:sc_backend, http_username: 'http_username', http_password: 'http_password')
+      sc_backend.http_password.should == "http_password"
     end
   end
 end

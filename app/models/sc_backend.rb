@@ -25,11 +25,20 @@ class ScBackend < ActiveRecord::Base
   validates :min_window_success, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
   validates :first_requery_after, :requery_interval, :numericality => { :only_integer => true, :greater_than => 0 }
   validates :url, format: { with: URI.regexp , :message => 'Please enter a valid url, Eg: http://example.com'}, length: { maximum: 100 }, :allow_blank => true
-  
+
   validate :check_max_consecutive_failures
   validate :check_min_consecutive_success
   validate :check_max_window_failures
   validate :check_email_addresses
+
+  validates_presence_of :http_password, if: "http_username.present?"
+  validates_absence_of :http_password, if: "http_username.blank?"
+  validates :http_password, length: { maximum: 50 }, allow_blank: true
+  validates :http_username, format: { with: /\A[a-z|A-Z|0-9|\.|\_]+\z/, :message => 'Invalid format, expected format is : {[a-z|A-Z|0-9|\.|\_]}' }, length: { maximum: 100 }, allow_blank: true
+
+  before_save :encrypt_values
+  after_save :decrypt_values
+  after_find :decrypt_values
 
   def check_max_consecutive_failures
     unless (self.max_consecutive_failures.nil? and self.min_consecutive_success.nil?)
@@ -71,5 +80,15 @@ class ScBackend < ActiveRecord::Base
       end
       errors.add(email_id.to_sym, "is invalid, expected format is abc@def.com") unless invalid_ids.empty?
     end
+  end
+  
+  private
+
+  def decrypt_values
+    self.http_password = DecPassGenerator.new(http_password,ENV['CONSUMER_KEY'], ENV['CONSUMER_SECRET']).generate_decrypted_data if http_password.present?
+  end
+
+  def encrypt_values
+    self.http_password = EncPassGenerator.new(self.http_password, ENV['CONSUMER_KEY'], ENV['CONSUMER_SECRET']).generate_encrypted_password unless http_password.to_s.empty?
   end
 end

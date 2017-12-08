@@ -1,0 +1,33 @@
+%br
+%h1 Listing SC Services
+= render :partial => 'advanced_search'
+%br
+%br
+%table.table.table-bordered.table-striped.table-hover
+  .thead
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Code
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Name
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Use Proxy?
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      URL
+
+  .tbody
+    - @records.each do |sc_service|
+      %tr
+        %td{:style=>'text-align:left;'}
+          = link_to 'Show', sc_service
+        %td{:style=>'text-align:left;'}
+          = link_to 'Edit', edit_sc_service_path(sc_service)
+        %td{:style=>'text-align:left;'}
+          = sc_service.code
+        %td{:style=>'text-align:left;'}
+          = sc_service.name
+        %td{:style=>'text-align:left;'}
+          = sc_service.use_proxy
+        %td{:style=>'text-align:left;'}
+          = sc_service.url
