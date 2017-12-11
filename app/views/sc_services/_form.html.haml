@@ -1,0 +1,45 @@
+= simple_form_for @sc_service, :html => {:class=>'form-horizontal', :autocomplete=>"off", :id => "sc_service_form"} do |f|
+  .control-group
+    = f.label ' '
+    #msg-error
+      = error_message_for(@sc_service, :base, :prepend_text => "")
+  .form-main{:style => 'width:100%'}
+    = f.hidden_field :lock_version
+    = f.hidden_field :approved_id
+    = f.hidden_field :approved_version
+    .control-group
+      = f.label :code, "*Code", :class => 'control-label'
+      = f.text_field :code, readOnly: true
+      #msg-error
+        = error_message_for(@sc_service, :code, :prepend_text => "")
+    .control-group
+      = f.label :name, "*Name", :class => 'control-label'
+      = f.text_field :name, readOnly: true
+      #msg-error
+        = error_message_for(@sc_service, :name, :prepend_text => "")
+    .control-group
+      = f.label :use_proxy, "*Use Proxy?", :class => 'control-label'
+      = f.check_box :use_proxy, {},"Y","N"
+      #msg-error
+        = error_message_for(@sc_service, :use_proxy, :prepend_text => "")
+    .control-group
+      = f.label :url, "URL", :class => 'control-label'
+      = f.text_field :url, :maxlength => 100
+      #msg-error
+        = error_message_for(@sc_service, :url, :prepend_text => "")
+    .control-group
+      = f.label :http_username, "HTTP Username", :class => 'control-label'
+      = f.text_field :http_username, :maxlength => 100
+      #msg-error
+        = error_message_for(@sc_service, :http_username, :prepend_text => "")
+    .control-group
+      = f.label :http_password, "HTTP Password", :class => 'control-label'
+      = f.password_field :http_password, :value => f.object.http_password, :maxlength => 50
+      #msg-error
+        = error_message_for(@sc_service, :http_password, :prepend_text => "")
+
+  .form-actions
+    - (f.object.new_record? and f.object.url.nil?) ? label_name = "Create" : label_name = "Update"
+    = f.button "submit" ,:class=>"btn btn-primary", :id => 'submit_rule', :value => label_name + ' Service'
+    = link_to :Cancel, sc_services_path, :name => 'cancel', :class=>"cancel btn"
+

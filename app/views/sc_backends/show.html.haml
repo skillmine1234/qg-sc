@@ -100,6 +100,19 @@
                 %td#msg-error
                   = error_message_for(@sc_backend, :requery_interval, :prepend_text => "")
               %tr
+                %td.label HTTP Username
+                %td.value
+                  = @sc_backend.http_username
+                %td
+              %tr
+                %td.label HTTP Password
+                %td.value
+                  - if @sc_backend.http_password.present? && @sc_backend.approval_status == 'A'
+                    = '*****'
+                  - else
+                    = @sc_backend.http_password
+                %td
+              %tr
                 %td.label Created By
                 %td.value
                   = @sc_backend.created_user.try(:username)

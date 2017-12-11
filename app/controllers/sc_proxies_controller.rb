@@ -26,7 +26,7 @@ class ScProxiesController < ApplicationController
     else
       @sc_proxy.updated_by = current_user.id
       @sc_proxy.save!
-      flash[:alert] = 'ScProxy successfully modified successfully'
+      flash[:alert] = 'ScProxy modified successfully'
       redirect_to @sc_proxy
     end
     rescue ActiveRecord::StaleObjectError

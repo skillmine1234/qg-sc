@@ -72,6 +72,16 @@
       = f.text_field :alert_email_to, :placeholder => "Enter Email IDs separated by ';'", :style => "width: 400px;"
       #msg-error
         = error_message_for(@sc_backend, :alert_email_to, :prepend_text => "")
+    .control-group
+      = f.label :http_username, "HTTP Username", :class => 'control-label'
+      = f.text_field :http_username, :maxlength => 100
+      #msg-error
+        = error_message_for(@sc_backend, :http_username, :prepend_text => "")
+    .control-group
+      = f.label :http_password, "HTTP Password", :class => 'control-label'
+      = f.password_field :http_password, :value => f.object.http_password, :maxlength => 50
+      #msg-error
+        = error_message_for(@sc_backend, :http_password, :prepend_text => "")
   .form-actions
     = f.button "submit" ,:class=>"btn btn-primary", :id => 'submit_sc_backend', :value => 'Update SC Backend'
     = link_to :Cancel,'/sc_backends', :name => 'cancel', :class=>"cancel btn"
