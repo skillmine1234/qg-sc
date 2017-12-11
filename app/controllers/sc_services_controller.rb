@@ -26,7 +26,7 @@ class ScServicesController < ApplicationController
     else
       @sc_service.updated_by = current_user.id
       @sc_service.save!
-      flash[:alert] = 'ScService modified successfully'
+      flash[:alert] = 'ScService modified successfully and is pending for approval'
       redirect_to @sc_service
     end
     rescue ActiveRecord::StaleObjectError
