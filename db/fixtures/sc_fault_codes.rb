@@ -40,7 +40,7 @@ end
  
 ScFaultCode.seed(:fault_code) do |s|
  s.fault_code = 'ns:E504'
- s.fault_reason = 'Bad Gateway'
+ s.fault_reason = 'Gateway Timeout'
  s.fault_kind = 'T'
  s.occurs_when = 'An upstream service times out'
  s.remedial_action = 'Retry Request After 15 minutes'
