@@ -41,28 +41,28 @@ class ScBackend < ActiveRecord::Base
   after_find :decrypt_values
 
   def check_max_consecutive_failures
-    unless (self.max_consecutive_failures.nil? and self.min_consecutive_success.nil?)
+    if (self.max_consecutive_failures.present? and self.min_consecutive_success.present?)
       errors[:max_consecutive_failures] << "should be less than Minimum Consecutive Success" if (self.max_consecutive_failures > self.min_consecutive_success)
     end
-    unless (self.max_consecutive_failures.nil? and self.max_window_failures.nil?)
+    if (self.max_consecutive_failures.present? and self.max_window_failures.present?)
       errors[:max_consecutive_failures] << "should be less than Maximum Window Failures" if (self.max_consecutive_failures > self.max_window_failures)
     end
-    unless (self.max_consecutive_failures.nil? and self.min_window_success.nil?)
+    if (self.max_consecutive_failures.present? and self.min_window_success.present?)
       errors[:max_consecutive_failures] << "should be less than Minimum Window Success" if (self.max_consecutive_failures > self.min_window_success)
     end
   end
 
   def check_min_consecutive_success
-    unless (self.min_consecutive_success.nil? and self.max_window_failures.nil?)
+    if (self.min_consecutive_success.present? and self.max_window_failures.present?)
       errors[:min_consecutive_success] << "should be less than Maximum Window Failures" if (self.min_consecutive_success > self.max_window_failures)
     end
-    unless (self.min_consecutive_success.nil? and self.min_window_success.nil?)
+    if (self.min_consecutive_success.present? and self.min_window_success.present?)
       errors[:min_consecutive_success] << "should be less than Minimum Window Success" if (self.min_consecutive_success > self.min_window_success)
     end
   end
 
   def check_max_window_failures
-    unless (self.max_window_failures.nil? and self.min_window_success.nil?)
+    if (self.max_window_failures.present? and self.min_window_success.present?)
       errors[:max_window_failures] << "should be less than Minimum Window Success" if (self.max_window_failures > self.min_window_success)
     end
   end
