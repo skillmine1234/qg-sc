@@ -1,4 +1,5 @@
-ScProxy.seed(:url) do |s|
+ScProxy.seed_once(:id) do |s|
+  s.id = 2
   s.url = 'https://wfh.yesbank.in:8082'
   s.username = 'SCG30117'
   s.password = 'Yesbank1'
