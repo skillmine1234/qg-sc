@@ -24,8 +24,8 @@ class ScBackendResponseCodeSearcher
 
   def find
     reln = approval_status == 'U' ? ScBackendResponseCode.unscoped.where("approval_status =?",'U').order("id desc") : ScBackendResponseCode.order("id desc")
-    reln = reln.where("sc_backend_code=?", sc_backend_code) if sc_backend_code.present?
-    reln = reln.where("response_code=?", response_code) if response_code.present?
+    reln = reln.where("sc_backend_code IN (?)", sc_backend_code.split(",").collect(&:strip)) if sc_backend_code.present?
+    reln = reln.where("response_code IN (?)", response_code.split(",").collect(&:strip)) if response_code.present?
     reln
   end
 end

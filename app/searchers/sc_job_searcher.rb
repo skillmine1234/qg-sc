@@ -24,8 +24,8 @@ class ScJobSearcher
 
   def find
     reln = ScJob.order("id desc")
-    reln = reln.where("code=?", code) if code.present?
-    reln = reln.where("status_code=?", status_code) if status_code.present?
+    reln = reln.where("code IN (?)", code.split(",").collect(&:strip)) if code.present?
+    reln = reln.where("status_code IN (?)", status_code.split(",").collect(&:strip)) if status_code.present?
     reln
   end
 end

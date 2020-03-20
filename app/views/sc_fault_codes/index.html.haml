@@ -26,3 +26,8 @@
           = sc_fault_code.fault_reason
         %td{:style=>'text-align:left;'}
           = sc_fault_code.fault_kind
+
+:javascript
+  $(document).ready(function(){
+    $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
+  });

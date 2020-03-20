@@ -20,3 +20,9 @@
           = sc_proxy.url
         %td{:style=>'text-align:left;'}
           = sc_proxy.is_enabled
+
+
+:javascript
+  $(document).ready(function(){
+    $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
+  });

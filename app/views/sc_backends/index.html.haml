@@ -64,4 +64,8 @@
         %td{:style=>'text-align:left;'}
           = sc_backend.sc_backend_status_changes.last.try(:full_status)
 
+:javascript
+  $(document).ready(function(){
+    $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
+  });
 

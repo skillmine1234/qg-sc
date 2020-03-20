@@ -30,3 +30,8 @@
           = sc_backend_setting.service_code
         %td{:style=>'text-align:left;'}
           = sc_backend_setting.app_id
+
+:javascript
+  $(document).ready(function(){
+    $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
+  });

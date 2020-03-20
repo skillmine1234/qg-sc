@@ -24,8 +24,8 @@ class ScFaultCodeSearcher
 
   def find
     reln = ScFaultCode.order("id desc")
-    reln = reln.where("fault_code=?", fault_code) if fault_code.present?
-    reln = reln.where("fault_kind=?", fault_kind) if fault_kind.present?
+    reln = reln.where("fault_code IN (?)", fault_code.split(",").collect(&:strip)) if fault_code.present?
+    reln = reln.where("fault_kind IN (?)", fault_kind.split(",").collect(&:strip)) if fault_kind.present?
     reln
   end
 end

@@ -43,3 +43,8 @@
             = link_to 'Run Now', run_sc_job_path(sc_job), method: :put, class: 'btn btn-primary'
           - else
             = 'Started'
+
+:javascript
+  $(document).ready(function(){
+    $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
+  });

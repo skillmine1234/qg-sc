@@ -24,9 +24,9 @@ class ScBackendSettingSearcher
 
   def find
     reln = approval_status == 'U' ? ScBackendSetting.unscoped.where("approval_status =?",'U').order("id desc") : ScBackendSetting.order("id desc")
-    reln = reln.where("backend_code=?", backend_code) if backend_code.present?
-    reln = reln.where("service_code=?", service_code) if service_code.present?
-    reln = reln.where("app_id=?", app_id) if app_id.present?
+    reln = reln.where("backend_code IN (?)", backend_code.split(",").collect(&:strip)) if backend_code.present?
+    reln = reln.where("service_code IN (?)", service_code.split(",").collect(&:strip)) if service_code.present?
+    reln = reln.where("app_id IN (?)", app_id.split(",").collect(&:strip)) if app_id.present?
     reln
   end
 end
