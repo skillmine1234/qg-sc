@@ -31,3 +31,8 @@
           = sc_service.use_proxy
         %td{:style=>'text-align:left;'}
           = sc_service.url
+          
+:javascript
+  $(document).ready(function(){
+    $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
+  });
