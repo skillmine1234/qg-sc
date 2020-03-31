@@ -3,6 +3,9 @@
 %h1 Listing SC Jobs
 = render :partial => 'advanced_search'
 %br
+= "Total Count: #{@records.count}"
+= will_paginate @records, :page_links => true
+%br
 %br
 
 %table.table.table-bordered.table-striped.table-hover
