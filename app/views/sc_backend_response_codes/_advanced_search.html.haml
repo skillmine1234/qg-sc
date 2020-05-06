@@ -2,16 +2,23 @@
   Advanced Search
   %span.caret
 .collapsible-content
-  = form_tag sc_backend_response_codes_path, :method => :put, :class => 'form-horizontal', :autocomplete=>"off", id: 'advanced_search' do
+  = form_tag '', :method => 'get', :class => 'form-horizontal', :autocomplete=>"off" do
     .control-group
       = label_tag "SC Backend Code", "SC Backend Code", :class => 'control-label'
       = text_field_tag :sc_backend_code, params[:sc_backend_code]
     .control-group
       = label_tag "Response Code", "Response Code", :class => 'control-label'
       = text_field_tag :response_code, params[:response_code]
-
-    = hidden_field_tag :page, params[:page] || 1
-
     .form-actions
-      = submit_tag "Search", :name => nil, :class => 'btn btn-primary', :id => "adv_search_button"
-      = button_tag "Reset", :type => 'button', :value=>'Reset', :class => 'btn', :id => 'adv_search_reset_button'
+      = button_tag "Search", :class => 'btn btn-primary'
+      = button_tag "Reset", :type => 'button', :value=>'Reset', :class => 'btn', :id => 'sc_backend_response_code_reset'
+    = hidden_field_tag :advanced_search, :true
+
+  :javascript
+    $(document).ready(function(){
+      $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
+    });
+
+    $("#sc_backend_response_code_reset").click(function() {
+      $(this).closest('form').find("input").val("");
+    });

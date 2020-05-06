@@ -3,8 +3,8 @@
 %h1 Listing SC Fault Codes
 = render :partial => 'advanced_search'
 %br
-= "Total Count: #{@records.count}"
-= will_paginate @records, :page_links => true
+= "Total Count: #{@sc_fault_codes.count}"
+= will_paginate @sc_fault_codes, :page_links => true
 %br
 %br
 
@@ -19,7 +19,7 @@
       Fault Kind
 
   .tbody
-    - @records.each do |sc_fault_code|
+    - @sc_fault_codes.each do |sc_fault_code|
       %tr
         %td{:style=>'text-align:left;'}
           = link_to 'Show', sc_fault_code
@@ -29,8 +29,3 @@
           = sc_fault_code.fault_reason
         %td{:style=>'text-align:left;'}
           = sc_fault_code.fault_kind
-
-:javascript
-  $(document).ready(function(){
-    $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
-  });

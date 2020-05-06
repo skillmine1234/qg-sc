@@ -5,8 +5,8 @@
 %h1 Listing SC Backend Response Codes
 = render :partial => 'advanced_search'
 %br
-= "Total Count: #{@records.count}"
-= will_paginate @records, :page_links => true
+= "Total Count: #{@sc_backend_response_codes.count}"
+= will_paginate @sc_backend_response_codes, :page_links => true
 %br
 %table.table.table-bordered.table-striped.table-hover
   .thead
@@ -21,7 +21,7 @@
     %th{:style=>'text-align:left; background-color: lightblue;'}
       Fault Code
   .tbody
-    - @records.each do |code|
+    - @sc_backend_response_codes.each do |code|
       %tr
         %td{:style=>'text-align:left;'}
           = link_to 'Show', code
@@ -35,8 +35,3 @@
           = code.response_code
         %td{:style=>'text-align:left;'}
           = code.fault_code
-
-:javascript
-  $(document).ready(function(){
-    $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
-  });

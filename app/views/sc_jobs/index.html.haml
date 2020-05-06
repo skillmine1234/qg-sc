@@ -3,8 +3,8 @@
 %h1 Listing SC Jobs
 = render :partial => 'advanced_search'
 %br
-= "Total Count: #{@records.count}"
-= will_paginate @records, :page_links => true
+= "Total Count: #{@sc_jobs.count}"
+= will_paginate @sc_jobs, :page_links => true
 %br
 %br
 
@@ -24,7 +24,7 @@
     %th{:style=>'text-align:left; background-color: lightblue;'}
 
   .tbody
-    - @records.each do |sc_job|
+    - @sc_jobs.each do |sc_job|
       %tr
         %td{:style=>'text-align:left;'}
           = link_to 'Show', sc_job
@@ -46,8 +46,3 @@
             = link_to 'Run Now', run_sc_job_path(sc_job), method: :put, class: 'btn btn-primary'
           - else
             = 'Started'
-
-:javascript
-  $(document).ready(function(){
-    $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
-  });
