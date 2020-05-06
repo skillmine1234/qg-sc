@@ -2,7 +2,7 @@
   Advanced Search
   %span.caret
 .collapsible-content
-  = form_tag sc_backend_settings_path, :method => :put, :class => 'form-horizontal', :autocomplete=>"off", id: 'advanced_search' do
+  = form_tag '', :method => 'get', :class => 'form-horizontal', :autocomplete=>"off" do
     .control-group
       = label_tag "Backend Code", "Backend Code", :class => 'control-label'
       = text_field_tag :backend_code, params[:backend_code]
@@ -12,9 +12,16 @@
     .control-group
       = label_tag "App ID", "App ID", :class => 'control-label'
       = text_field_tag :app_id, params[:app_id]
-
-    = hidden_field_tag :page, params[:page] || 1
-
     .form-actions
-      = submit_tag "Search", :name => nil, :class => 'btn btn-primary', :id => "adv_search_button",onclick: "$('#page').val(1)"
-      = button_tag "Reset", :type => 'button', :value=>'Reset', :class => 'btn', :id => 'adv_search_reset_button'
+      = button_tag "Search", :class => 'btn btn-primary'
+      = button_tag "Reset", :type => 'button', :value=>'Reset', :class => 'btn', :id => 'sc_backend_setting_reset'
+    = hidden_field_tag :advanced_search, :true
+
+  :javascript
+    $(document).ready(function(){
+      $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
+    });
+
+    $("#sc_backend_setting_reset").click(function() {
+      $(this).closest('form').find("input").val("");
+    });

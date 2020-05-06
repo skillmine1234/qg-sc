@@ -2,6 +2,8 @@
 %h1 Listing SC Services
 = render :partial => 'advanced_search'
 %br
+= "Total Count: #{@sc_services.count}"
+= will_paginate @sc_services, :page_links => true
 %br
 %table.table.table-bordered.table-striped.table-hover
   .thead
@@ -17,7 +19,7 @@
       URL
 
   .tbody
-    - @records.each do |sc_service|
+    - @sc_services.each do |sc_service|
       %tr
         %td{:style=>'text-align:left;'}
           = link_to 'Show', sc_service
@@ -31,8 +33,3 @@
           = sc_service.use_proxy
         %td{:style=>'text-align:left;'}
           = sc_service.url
-          
-:javascript
-  $(document).ready(function(){
-    $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
-  });

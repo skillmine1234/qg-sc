@@ -1,6 +1,22 @@
-= search_form_for @searcher do |f|
-  = f.standard_fields
-  = f.input :code
-  = f.action_buttons
-= "Total Count: #{@records.count}"
-= will_paginate @records, :page_links => true
+%h2.collapsible
+  Advanced Search
+  %span.caret
+.collapsible-content
+  = form_tag '', :method => 'get', :class => 'form-horizontal', :autocomplete=>"off" do
+    .control-group
+      = label_tag "Code", "Code", :class => 'control-label'
+      = text_field_tag :code, params[:code]
+    .form-actions
+      = button_tag "Search", :class => 'btn btn-primary'
+      = button_tag "Reset", :type => 'button', :value=>'Reset', :class => 'btn', :id => 'sc_services_reset'
+    = hidden_field_tag :advanced_search, :true
+
+
+  :javascript
+    $(document).ready(function(){
+      $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
+    });
+
+    $("#sc_services_reset").click(function() {
+      $(this).closest('form').find("input").val("");
+    });

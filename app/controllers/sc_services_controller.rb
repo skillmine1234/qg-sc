@@ -5,6 +5,7 @@ class ScServicesController < ApplicationController
   respond_to :json
   include Approval2::ControllerAdditions
   include ApplicationHelper
+  include ScServiceHelper
 
   def create
     @sc_service = ScService.new(sc_service_params)
@@ -40,12 +41,12 @@ class ScServicesController < ApplicationController
   end
 
   def index
-    if request.get?
-      @searcher = ScServiceSearcher.new(params.permit(:approval_status, :page))
+    if params[:advanced_search].present?
+      sc_services = find_sc_services(params).order("id DESC")
     else
-      @searcher = ScServiceSearcher.new(search_params)
+      sc_services = (params[:approval_status].present? and params[:approval_status] == 'U') ? ScService.unscoped.where("approval_status =?",'U').order("id desc") : ScService.order("id desc")
     end
-    @records = @searcher.paginate
+    @sc_services = sc_services.paginate(:per_page => 10, :page => params[:page]) rescue []
   end
 
   def audit_logs

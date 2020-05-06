@@ -5,6 +5,7 @@ class ScBackendSettingsController < ApplicationController
   respond_to :json  
   include ApplicationHelper
   include Approval2::ControllerAdditions
+  include ScBackendSettingHelper
   
   def new
     @sc_backend_setting = ScBackendSetting.new
@@ -42,14 +43,14 @@ class ScBackendSettingsController < ApplicationController
   def show
     @sc_backend_setting = ScBackendSetting.unscoped.find_by_id(params[:id])
   end
-  
+
   def index
-    if request.get?
-      @searcher = ScBackendSettingSearcher.new(params.permit(:approval_status, :page))
+    if params[:advanced_search].present?
+      sc_backend_settings = find_sc_backend_settings(params).order("id DESC")
     else
-      @searcher = ScBackendSettingSearcher.new(search_params)
+      sc_backend_settings = (params[:approval_status].present? and params[:approval_status] == 'U') ? ScBackendSetting.unscoped.where("approval_status =?",'U').order("id desc") : ScBackendSetting.order("id desc")
     end
-    @records = @searcher.paginate
+    @sc_backend_settings = sc_backend_settings.paginate(:per_page => 10, :page => params[:page]) rescue []
   end
 
   def audit_logs

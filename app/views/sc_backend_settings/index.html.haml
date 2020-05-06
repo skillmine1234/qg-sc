@@ -5,8 +5,8 @@
 %h1 Listing SC Backend Setting
 = render :partial => 'advanced_search'
 %br
-= "Total Count: #{@records.count}"
-= will_paginate @records, :page_links => true
+= "Total Count: #{@sc_backend_settings.count}"
+= will_paginate @sc_backend_settings, :page_links => true
 %br
 %table.table.table-bordered.table-striped.table-hover
   .thead
@@ -20,7 +20,7 @@
       App ID
 
   .tbody
-    - @records.each do |sc_backend_setting|
+    - @sc_backend_settings.each do |sc_backend_setting|
       %tr
         %td{:style=>'text-align:left;'}
           = link_to 'Show', sc_backend_setting
@@ -32,8 +32,3 @@
           = sc_backend_setting.service_code
         %td{:style=>'text-align:left;'}
           = sc_backend_setting.app_id
-
-:javascript
-  $(document).ready(function(){
-    $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
-  });
