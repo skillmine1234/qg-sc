@@ -4,14 +4,15 @@ class ScJobsController < ApplicationController
   before_filter :block_inactive_user!
   respond_to :json
   include ApplicationHelper
+  include ScJobHelper
 
   def index
-    if request.get?
-      @searcher = ScJobSearcher.new(params.permit(:page))
+    if params[:advanced_search].present?
+      sc_jobs = find_sc_jobs(params).order("id DESC")
     else
-      @searcher = ScJobSearcher.new(search_params)
+      sc_jobs = ScJob.order("id desc")
     end
-    @records = @searcher.paginate
+    @sc_jobs = sc_jobs.paginate(:per_page => 10, :page => params[:page]) rescue []
   end
 
   def show

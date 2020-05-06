@@ -4,6 +4,7 @@ class ScFaultCodesController < ApplicationController
   before_filter :block_inactive_user!
   respond_to :json
   include ApplicationHelper
+  include ScFaultCodeHelper
 
   def show
     @sc_fault_code = ScFaultCode.find_by_id(params[:id])
@@ -12,14 +13,14 @@ class ScFaultCodesController < ApplicationController
       format.html 
     end 
   end
-  
+
   def index
-    if request.get?
-      @searcher = ScFaultCodeSearcher.new(params.permit(:page))
+    if params[:advanced_search].present?
+      sc_fault_codes = find_sc_fault_codes(params).order("id DESC")
     else
-      @searcher = ScFaultCodeSearcher.new(search_params)
+      sc_fault_codes = ScFaultCode.order("id desc")
     end
-    @records = @searcher.paginate
+    @sc_fault_codes = sc_fault_codes.paginate(:per_page => 10, :page => params[:page]) rescue []
   end
   
   def get_fault_reason

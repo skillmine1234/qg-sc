@@ -5,6 +5,7 @@ class ScBackendResponseCodesController < ApplicationController
   respond_to :json  
   include ApplicationHelper
   include Approval2::ControllerAdditions
+  include ScBackendResponseCodeHelper
   
   def new
     @sc_backend_response_code = ScBackendResponseCode.new
@@ -43,13 +44,14 @@ class ScBackendResponseCodesController < ApplicationController
     @sc_backend_response_code = ScBackendResponseCode.unscoped.find_by_id(params[:id])
   end
   
+
   def index
-    if request.get?
-      @searcher = ScBackendResponseCodeSearcher.new(params.permit(:approval_status, :page))
+    if params[:advanced_search].present?
+      sc_backend_response_codes = find_sc_backend_response_codes(params).order("id DESC")
     else
-      @searcher = ScBackendResponseCodeSearcher.new(search_params)
+      sc_backend_response_codes = (params[:approval_status].present? and params[:approval_status] == 'U') ? ScBackendResponseCode.unscoped.where("approval_status =?",'U').order("id desc") : ScBackendResponseCode.order("id desc")
     end
-    @records = @searcher.paginate
+    @sc_backend_response_codes = sc_backend_response_codes.paginate(:per_page => 10, :page => params[:page]) rescue []
   end
 
   def audit_logs
