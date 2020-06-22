@@ -1,0 +1,23 @@
+%h2.collapsible
+  Advanced Search
+  %span.caret
+.collapsible-content
+  = form_tag '', :method => 'get', :class => 'form-horizontal', :autocomplete=>"off" do
+    .control-group
+      = label_tag "S_No", "S_No", :class => 'control-label'
+      = number_field_tag :s_no, params[:s_no]
+    .control-group
+      = label_tag "Key", "Key", :class => 'control-label'
+      = text_field_tag :key, params[:key],placeholder: 'Multisearch Search Enabled'
+    .control-group
+      = label_tag "Value", "Value", :class => 'control-label'
+      = text_field_tag :value, params[:value],placeholder: 'Multisearch Search Enabled'
+    .form-actions
+      = button_tag "Search", :class => 'btn btn-primary'
+      = button_tag "Reset", :type => 'button', :value=>'Reset', :class => 'btn', :id => 'esb_config_reset'
+    = hidden_field_tag :advanced_search, :true
+
+  :javascript
+    $("#esb_config_reset").click(function() {
+      $(this).closest('form').find("input").val("");
+    });

@@ -1,0 +1,49 @@
+/ %br
+/ = link_to "New Esb Config", new_esb_config_path
+/ %br
+/ %br
+%h1 Listing Esb Config
+= render :partial => 'advanced_search'
+%br
+= "Total Count: #{@esb_configs.count}"
+= will_paginate @esb_configs, :page_links => true
+%br
+%table.table.table-bordered.table-striped.table-hover
+  .thead
+    / %th{:style=>'text-align:left; background-color: lightblue;'}
+    / %th{:style=>'text-align:left; background-color: lightblue;'}
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      S_NO
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Key
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Value
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Created Date
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Created User
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Updated Date
+    %th{:style=>'text-align:left; background-color: lightblue;'}
+      Updated User
+  .tbody
+    - @esb_configs.each do |esb_config|
+      %tr
+        / %td{:style=>'text-align:left;'}
+        /   = link_to 'Show', "/esb_configs/#{esb_config.s_no}"
+        / %td{:style=>'text-align:left;'}
+        /   = link_to 'Edit', edit_esb_config_path(esb_config.s_no)
+        %td{:style=>'text-align:left;'}
+          = esb_config.s_no
+        %td{:style=>'text-align:left;'}
+          = esb_config.key
+        %td{:style=>'text-align:left;'}
+          = esb_config.value
+        %td{:style=>'text-align:left;'}
+          = esb_config.created_date
+        %td{:style=>'text-align:left;'}
+          = esb_config.created_user
+        %td{:style=>'text-align:left;'}
+          = esb_config.updated_date
+        %td{:style=>'text-align:left;'}
+          = esb_config.updated_user

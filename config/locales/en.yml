@@ -7,3 +7,4 @@ en:
     sc_backend_setting: 'Service Center Backend Setting'
     sc_proxy: 'Service Center Backend Proxy'
     sc_service: 'Service Center Services'
+    esb_config: 'Esb Config'
