@@ -16,18 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :esb_configs, except: :index do
-    collection do
-      get :index
-      put :index
-      get :get_service_codes
-      get :settings
-    end
-    member do
-      get 'audit_logs'
-      put 'approve'
-    end
-  end
+  resources :esb_configs
   
   resources :sc_backend_response_codes, except: :index do
     collection do
