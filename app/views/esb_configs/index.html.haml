@@ -20,7 +20,7 @@
     - @esb_configs.each do |esb_config|
       %tr
         %td{:style=>'text-align:left;'}
-          = esb_config.s_no
+          = esb_config.s_no.to_i
         %td{:style=>'text-align:left;'}
           = esb_config.key
         %td{:style=>'text-align:left;'}
