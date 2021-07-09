@@ -25,13 +25,13 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :sc_fault_codes, except: :index do
-    collection do
-      get :index
-      put :index
-      get :get_fault_reason
+  resources :sc_fault_codes do
+     member do
+      get 'audit_logs'
+      put 'approve'
     end
   end
+
   
   resources :sc_backend_settings, except: :index do
     collection do

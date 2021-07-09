@@ -1,0 +1,40 @@
+= simple_form_for @sc_fault_code, :html => {:class=>'form-horizontal', :autocomplete=>"off", :id => "sc_fault_code_form"} do |f|
+  .control-group
+    = f.label ' '
+    #msg-error
+      = error_message_for(@sc_fault_code, :base, :prepend_text => "")
+  .form-main{:style => 'width:100%'}
+    = f.hidden_field :lock_version
+    = f.hidden_field :approved_id
+    = f.hidden_field :approved_version
+    .control-group
+      = f.label :fault_code, "Fault Code", :class => 'control-label'
+      = f.text_field :fault_code
+      #msg-error
+        = error_message_for(@sc_fault_code, :fault_code, :prepend_text => "")
+    .control-group
+      = f.label :fault_reason, "Fault Reason", :class => 'control-label'
+      = f.text_field :fault_reason
+      #msg-error
+        = error_message_for(@sc_fault_code, :fault_reason, :prepend_text => "")
+    .control-group
+      = f.label :fault_kind, "Fault Kind", :class => 'control-label'
+      = f.text_field :fault_kind
+      #msg-error
+        = error_message_for(@sc_fault_code, :fault_kind, :prepend_text => "")
+    .control-group
+      = f.label :occurs_when, "Occurs When", :class => 'control-label'
+      = f.text_field :occurs_when
+      #msg-error
+        = error_message_for(@sc_fault_code, :occurs_when, :prepend_text => "")
+    .control-group
+      = f.label :remedial_action, "Remedial Action", :class => 'control-label'
+      = f.text_field :remedial_action
+      #msg-error
+        = error_message_for(@sc_fault_code, :remedial_action, :prepend_text => "")        
+
+  .form-actions
+    - (f.object.new_record? and f.object.fault_code.nil?) ? label_name = "Create" : label_name = "Update"
+    = f.button "submit" ,:class=>"btn btn-primary", :id => 'submit_rule', :value => label_name
+    = link_to :Cancel,root_path, :name => 'cancel', :class=>"cancel btn"
+

@@ -1,40 +1,59 @@
 .form-horizontal.show_form
-  .form-main-with-color{:style=>'background-color: #F1F2F8; height: 600px; padding-left: 10px'}
+  .form-main-with-color{:style=>'background-color: #F1F2F8; height: 900px;'}
     #form-details
-      %h3 SC Fault Code Details
-      %table.table.no-border{:style=>"table-layout: fixed; width: 100%;"}
-        %tr
-          %td.label Fault Code
-          %td.value
-            = @sc_fault_code.fault_code
-          %td
-        %tr
-          %td.label Fault Reason
-          %td.value
-            = @sc_fault_code.fault_reason
-          %td
-        %tr
-          %td.label Fault Kind
-          %td.value
-            = @sc_fault_code.fault_kind
-          %td
-        %tr
-          %td.label Occurs When
-          %td.value
-            = @sc_fault_code.occurs_when
-          %td
-        %tr
-          %td.label Remedial Action
-          %td.value
-            = @sc_fault_code.remedial_action
-          %td
-        %tr
-          %td.label Created At
-          %td.value
-            = @sc_fault_code.created_at.try(:strftime, "%d/%m/%Y %I:%M%p")
-          %td
-        %tr
-          %td.label Updated At
-          %td.value
-            = @sc_fault_code.updated_at.try(:strftime, "%d/%m/%Y %I:%M%p")
-          %td
+      %h3 SC Fault Codes Details 
+      %br
+      %p{:style => 'text-align:left; padding-left:6px; padding-bottom:17px'}
+        - can = can? :edit, @sc_fault_code
+        %a.btn{:href => "#{!(can) ? '#' : '/sc_fault_codes/' + @sc_fault_code.id.to_s + '/edit'}", :role => "button", :class => "btn btn-primary #{(can) ? '' : 'disabled'}"} Edit
+        = render 'approve', :@record => @sc_fault_code
+      #main-block{:style=>"width: 100%;"}
+        #left-block{:style => 'width: 49%; float: left;'}
+          %table.table.no-border{:style=>"table-layout: fixed; width: 100%;"}
+            %tr
+              %td.label Fault Code
+              %td.value
+                = @sc_fault_code.fault_code
+              %td
+            %tr
+              %td.label Fault Reason
+              %td.value
+                = @sc_fault_code.fault_reason
+              %td
+            %tr
+              %td.label Fault Kind
+              %td.value
+                = @sc_fault_code.fault_kind
+              %td
+            %tr
+              %td.label Occurs When
+              %td.value
+                = @sc_fault_code.occurs_when
+              %td
+            %tr
+              %td.label Remedial Action
+              %td.value
+                = @sc_fault_code.remedial_action
+              %td
+            %tr
+              %td.label Created At
+              %td.value
+                = @sc_fault_code.created_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+              %td
+            %tr
+              %td.label Updated At
+              %td.value
+                = @sc_fault_code.updated_at.try(:strftime, "%d/%m/%Y %I:%M%p")
+              %td
+            %tr
+              %td.label Created By
+              %td.value
+                = @sc_fault_code.created_user.try(:username)
+              %td
+          %tr
+            %td.label Updated By
+            %td.value
+              = @sc_fault_code.updated_user.try(:username)
+            %td  
+
+             
