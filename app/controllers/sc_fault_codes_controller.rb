@@ -3,8 +3,8 @@ class ScFaultCodesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :block_inactive_user!
   respond_to :json
-  include Approval2::ControllerAdditions
   include ApplicationHelper
+  include Approval2::ControllerAdditions
   include ScFaultCodeHelper
 
   def new
@@ -42,10 +42,6 @@ class ScFaultCodesController < ApplicationController
 
   def show
     @sc_fault_code = ScFaultCode.unscoped.find_by_id(params[:id])
-    respond_to do |format|
-      format.json { render json: @sc_fault_code }
-      format.html 
-    end 
   end
 
   def index
@@ -77,7 +73,7 @@ class ScFaultCodesController < ApplicationController
 
   def sc_fault_code_params
     params.require(:sc_fault_code).permit(:fault_code, :fault_reason, :fault_kind, :occurs_when, :created_at, :updated_at, 
-                                                     :remedial_action,:created_by,:updated_by)
+                                                     :remedial_action,:created_by,:updated_by,:lock_version,:approved_id,:approved_version)
   end
   
 end

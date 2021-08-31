@@ -35,6 +35,6 @@
 
   .form-actions
     - (f.object.new_record? and f.object.fault_code.nil?) ? label_name = "Create" : label_name = "Update"
-    = f.button "submit" ,:class=>"btn btn-primary", :id => 'submit_rule', :value => label_name
+    = f.button "submit" ,:class=>"btn btn-primary", :id => 'submit_sc_fault_code', :value => label_name
     = link_to :Cancel,root_path, :name => 'cancel', :class=>"cancel btn"
 
