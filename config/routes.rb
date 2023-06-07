@@ -16,6 +16,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :console_dbs do 
+    collection do 
+      get 'db_list'
+      get 'fault_code_master'
+      get 'fault_code_cust_stats'
+    end
+  end
+
+
   resources :esb_configs
   
   resources :sc_backend_response_codes, except: :index do

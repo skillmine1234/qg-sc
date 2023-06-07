@@ -1,0 +1,67 @@
+<br/>
+<%#= link_to "New SC Backend Response Code", new_sc_backend_response_code_path %>
+<br/>
+<br/>
+<h1>Listing Fault Code Customer Stats</h1>
+<%#= render :partial => 'advanced_search' %>
+<br/>
+<%#= "Total Count: #{@sc_backend_response_codes.count}" %>
+<%#= will_paginate @sc_backend_response_codes, :page_links => true %>
+<br/>
+<table class="table table-bordered table-striped table-hover">
+  <div class="thead">
+    <th style="text-align:left; background-color: lightblue;"></th>
+    <th style="text-align:left; background-color: lightblue;"></th>
+    <th style="text-align:left; background-color: lightblue;">
+      Fault Code
+    </th>
+    <th style="text-align:left; background-color: lightblue;">
+      Description
+    </th>
+    <th style="text-align:left; background-color: lightblue;">
+      Reason
+    </th>
+    <th style="text-align:left; background-color: lightblue;">
+      Resolution
+    </th>
+    <th style="text-align:left; background-color: lightblue;">
+      Status Code
+    </th>
+    <th style="text-align:left; background-color: lightblue;">
+      Sub Code
+    </th>
+    <th style="text-align:left; background-color: lightblue;">
+      Source App
+    </th>
+    <th style="text-align:left; background-color: lightblue;">
+      Error Classification
+    </th>
+    <th style="text-align:left; background-color: lightblue;">
+      Remarks
+    </th>
+  </div>
+  <!-- <div class="tbody">
+    <%# @sc_backend_response_codes.each do |code| %>
+      <tr>
+        <td style="text-align:left;">
+          <%#= link_to 'Show', code %>
+        </td>
+        <td style="text-align:left;">
+          <%#= link_to 'Edit', edit_sc_backend_response_code_path(code) %>
+        </td>
+        <td style="text-align:left;">
+          <%#= code.sc_backend_code %>
+        </td>
+        <td style="text-align:left;">
+          <%#= code.is_enabled %>
+        </td>
+        <td style="text-align:left;">
+          <%#= code.response_code %>
+        </td>
+        <td style="text-align:left;">
+          <%#= code.fault_code %>
+        </td>
+      </tr>
+    <%# end %>
+  </div> -->
+</table>
