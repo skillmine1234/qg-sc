@@ -9,7 +9,7 @@ class ConsoleDbsController < ApplicationController
   end
 
   def fault_code_cust_stats
-    @fault_code_stats = FaultCodeCustStats.all
+    @fault_code_stats = FaultCodeCustStat.all
   end
 
 end
