@@ -1,17 +1,11 @@
 <br/>
-<%#= link_to "New SC Backend Response Code", new_sc_backend_response_code_path %>
 <br/>
+<h1>Listing Fault Code Cust Stats</h1>
+
 <br/>
-<h1>Listing Fault Codes</h1>
-<%#= render :partial => 'advanced_search' %>
-<br/>
-<%#= "Total Count: #{@sc_backend_response_codes.count}" %>
-<%#= will_paginate @sc_backend_response_codes, :page_links => true %>
 <br/>
 <table class="table table-bordered table-striped table-hover">
   <div class="thead">
-    <th style="text-align:left; background-color: lightblue;"></th>
-    <th style="text-align:left; background-color: lightblue;"></th>
     <th style="text-align:left; background-color: lightblue;">
       Fault Code ID
     </th>
@@ -31,28 +25,28 @@
       Transaction Status
     </th>
   </div>
-  <!-- <div class="tbody">
-    <%# @sc_backend_response_codes.each do |code| %>
+  <div class="tbody">
+    <% @fault_code_stats.each do |code| %>
       <tr>
         <td style="text-align:left;">
-          <%#= link_to 'Show', code %>
+          <%= code.fault_code_id %>
         </td>
         <td style="text-align:left;">
-          <%#= link_to 'Edit', edit_sc_backend_response_code_path(code) %>
+          <%= code.customer_code %>
         </td>
         <td style="text-align:left;">
-          <%#= code.sc_backend_code %>
+          <%= code.source_app %>
         </td>
         <td style="text-align:left;">
-          <%#= code.is_enabled %>
+          <%= code.fault_date %>
         </td>
         <td style="text-align:left;">
-          <%#= code.response_code %>
+          <%= code.fault_count %>
         </td>
-        <td style="text-align:left;">
-          <%#= code.fault_code %>
+         <td style="text-align:left;">
+          <%= code.transaction_status %>
         </td>
       </tr>
-    <%# end %> -->
+    <% end %>
   </div>
 </table>

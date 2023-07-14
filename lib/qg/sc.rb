@@ -4,7 +4,7 @@ module Qg
     NAME = 'Service Center Backend'
     GROUP = 'sc-backend'
     MENU_ITEMS = [:sc_backend ,:sc_job, :sc_fault_code, :sc_backend_response_code, :sc_backend_setting, :sc_service,:esb_config]
-    MODELS = ['ScBackend','ScJob','ScFaultCode','ScBackendResponseCode','ScBackendSetting','ScProxy','ScService','EsbConfig']
+    MODELS = ['ScBackend','ScJob','ScFaultCode','ScBackendResponseCode','ScBackendSetting','ScProxy','ScService','EsbConfig','FaultCodeMaster','FaultCodeCustStat']
     TEST_MENU_ITEMS = []
     COMMON_MENU_ITEMS = [:console_data]
     RULE = :sc_proxy
