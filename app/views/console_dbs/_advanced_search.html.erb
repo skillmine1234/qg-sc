@@ -1,0 +1,30 @@
+<%= form_tag '', :method => 'get', :class => 'form-horizontal', :autocomplete=>"off" do %>
+  <div class="control-group">
+    <%= label_tag "Fault Code", "Fault Code", :class => 'control-label' %>
+    <%= text_field_tag :fault_code, params[:fault_code] %>
+  </div>
+  <div class="control-group">
+    <%= label_tag "Status Code", "Status Code", :class => 'control-label' %>
+    <%= text_field_tag :status_code, params[:status_code] %>
+  </div>
+  <div class="control-group">
+    <%= label_tag "Sub Code", "Sub Code", :class => 'control-label' %>
+    <%= text_field_tag :sub_code, params[:sub_code] %>
+  </div>
+  <div class="form-actions">
+    <%= button_tag "Search", :class => 'btn btn-primary' %>
+    <%= button_tag "Reset", :type => 'button', :value=>'Reset', :class => 'btn', :id => 'rx_app_reset' %>
+  </div>
+  <%= hidden_field_tag :advanced_search, :true %>
+<% end %>
+<script>
+  
+  $(document).ready(function(){
+    $('input[type="text"]'). attr("placeholder", "Multisearch Search Enabled");
+  });
+
+  $("#rx_app_reset").click(function() {
+    $(this).closest('form').find("input,select").val("");
+  });
+
+</script>

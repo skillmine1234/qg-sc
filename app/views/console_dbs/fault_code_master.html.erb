@@ -1,7 +1,13 @@
 <br/>
 <br/>
 <h1>Listing Fault Code Masters</h1>
-<br/>
+<h2 class="collapsible">
+  Advanced Search
+  <span class="caret"></span>
+</h2>
+<div class="collapsible-content">
+  <%= render :partial => 'advanced_search' %>
+</div>
 <%= will_paginate @fault_code_master, :page_links => true%>
 <br/>
 <table class="table table-bordered table-striped table-hover">

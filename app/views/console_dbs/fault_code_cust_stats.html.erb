@@ -1,8 +1,13 @@
 <br/>
 <br/>
 <h1>Listing Fault Code Cust Stats</h1>
-
-<br/>
+<h2 class="collapsible">
+  Advanced Search
+  <span class="caret"></span>
+</h2>
+<div class="collapsible-content">
+  <%= render :partial => 'advanced_search_stats' %>
+</div>
 <br/>
 <%= will_paginate @fault_code_stats, :page_links => true%>
 <br/>
