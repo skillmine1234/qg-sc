@@ -1,5 +1,5 @@
 module Qg
   module Sc
-    VERSION = "3.9.0"
+    VERSION = "4.0.0"
   end
 end
