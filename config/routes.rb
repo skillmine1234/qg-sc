@@ -21,6 +21,8 @@ Rails.application.routes.draw do
       get 'db_list'
       get 'fault_code_master'
       get 'fault_code_cust_stats'
+      get 'download_fault_code_master'
+      get 'download_fault_code_cust_stats'
     end
   end
 
