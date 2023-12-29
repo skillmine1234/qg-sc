@@ -1,10 +1,10 @@
 class ConsoleDbsController < ApplicationController
   require 'csv'
 
-  #authorize_resource
+  ##authorize_resource
   require 'will_paginate/array'
-  before_filter :authenticate_user!
-  before_filter :block_inactive_user!
+  before_action :authenticate_user!
+  before_action :block_inactive_user!
   respond_to :json
 
   def fault_code_master
